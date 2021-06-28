@@ -32,6 +32,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: "Run Danger"
         uses: danger/swift@3.3.0
+        run: danger-swift ci
         with:
             args: --failOnErrors --no-publish-check
         env:
