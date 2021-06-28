@@ -1,9 +1,5 @@
 name: CI
 
-env:
-  GITHUB_TOKEN: ${{ secrets.Dan }}
-  DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
-
 on:
   pull_request:
 
@@ -16,5 +12,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Danger
         uses: danger/swift@3.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.Dan }}
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
         with:
             args: --failOnErrors --no-publish-check
