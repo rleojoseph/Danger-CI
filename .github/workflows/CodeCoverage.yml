@@ -29,11 +29,8 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: "Run Danger"
-        uses: danger/swift@3.3.0
+      - name: Danger
+        if: ${{ github.event_name == 'pull_request' }}
         run: danger-swift ci
-        with:
-            args: --failOnErrors --no-publish-check
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
