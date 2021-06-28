@@ -2,6 +2,11 @@
 
 name: CI
 
+env:
+  DANGER_SWIFT_PATH: ${{ github.workspace }}/danger-swift
+  MINT_PATH: ${{ github.workspace }}/mint
+  SWIFLINT_PATH: ${{ github.workspace }}/swiftlint
+
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
@@ -30,7 +35,11 @@ jobs:
         run: echo Hello, world!
 
       - name: Danger
-        if: ${{ github.event_name == 'pull_request' }}
         run: danger-swift ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: swift build -v
+      
+      - name: Run tests
+        run: swift test -v
