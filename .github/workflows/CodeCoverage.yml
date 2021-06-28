@@ -1,27 +1,100 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    name: "Run Danger"
+  test-on-macos:
+    name: DANGER
     steps:
-      - uses: actions/checkout@v1
-      - name: Danger
-        uses: docker://ghcr.io/danger/danger-swift:3.7.2
-        with:
-            args: --failOnErrors --no-publish-check
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v2
+
+    - name: Install danger-js
+      run: brew install danger/tap/danger-js
+
+    - run: swift test
+
+    - run: swift run danger-swift ci --verbose
+      if: ${{ github.event_name == 'pull_request' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # test-on-linux:
+  #   name: Test on Linux
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       swift: [5.2.4, 5.3.3]
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v2
+
+  #   - name: Install danger-js
+  #     run: |
+  #       yarn global add danger
+  #       echo `yarn global bin` >> $GITHUB_PATH
+
+  #   - run: echo ${{ matrix.swift }} > .swift-version
+
+  #   - uses: YOCKOW/Action-setup-swift@v1
+
+  #   - run: swift test
+
+  #   - run: swift run danger-swift ci --verbose
+  #     if: ${{ github.event_name == 'pull_request' }}
+  #     env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  # test-without-spm-on-macos:
+  #   name: Test without SPM on macOS
+  #   runs-on: macOS-latest
+  #   strategy:
+  #     matrix:
+  #       xcode: [11.4, 12.3]
+  #   steps:
+  #   - uses: actions/checkout@v2
+
+  #   - name: Select Xcode
+  #     run: |
+  #       xcodebuild -version
+  #       ls -nt /Applications/ | grep "Xcode*"
+  #       sudo xcode-select -switch /Applications/Xcode_${{ matrix.xcode }}.app
+  #       xcodebuild -version
+
+  #   - name: Install danger-js
+  #     run: brew install danger/tap/danger-js
+
+  #   - run: make install
+
+  #   - run: danger-swift ci --verbose
+  #     if: ${{ github.event_name == 'pull_request' }}
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # test-without-spm-on-linux:
+  #   name: Test without SPM on Linux
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       swift: [5.2.4, 5.3.3]
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v2
+
+  #   - name: Install danger-js
+  #     run: |
+  #       yarn global add danger
+  #       echo `yarn global bin` >> $GITHUB_PATH
+
+  #   - run: echo ${{ matrix.swift }} > .swift-version
+
+  #   - uses: YOCKOW/Action-setup-swift@v1
+    
+  #   - run: sudo chmod -R a+rwx /usr/local
+
+  #   - run: make install
+
+  #   - run: danger-swift ci --verbose
+  #     if: ${{ github.event_name == 'pull_request' }}
+  #     env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
