@@ -12,6 +12,7 @@ let package = Package(
             targets: ["Danger-CI"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/danger/swift.git", from: "3.0.0")
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
     ],
