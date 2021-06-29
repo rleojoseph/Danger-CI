@@ -15,10 +15,10 @@ jobs:
         run: swift test
 
       - name: Run danger
-      run: |
-        npm install -g danger
-        brew install danger/tap/danger-swift
-        bundle exec danger
+        run: |
+          npm install -g danger
+          brew install danger/tap/danger-swift
+          bundle exec danger
 
       - name: Danger
         run: danger-swift ci
