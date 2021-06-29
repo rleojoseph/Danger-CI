@@ -16,13 +16,16 @@ jobs:
 
       - name: Run danger
         run: |
-          brew install danger/tap/danger-swift
-
-      - name: Danger
-        run: danger-swift ci
+          npm install -g danger
+          # brew install danger/tap/danger-swift
+          bundle exec danger
         env:
           GITHUB_TOKEN: ${{ secrets.LEO }}
           DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
+
+      # - name: Danger
+      #   run: danger-swift ci
+        
 
 # name: CI
 
