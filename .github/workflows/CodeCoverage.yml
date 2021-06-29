@@ -15,9 +15,8 @@ jobs:
         run: swift test
 
       - name: Run danger
-      run: |
-        brew install danger/tap/danger-swift
-        bundle exec danger
+        run: |
+          brew install danger/tap/danger-swift
 
       - name: Danger
         run: danger-swift ci
