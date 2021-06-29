@@ -12,12 +12,11 @@ jobs:
         run: swift build
 
       - name: Test
-        run: swift test
+        run: swift test --enable-code-coverage
 
       - name: Run danger
         run: |
           npm install -g danger
-          # brew install danger/tap/danger-swift
           bundle exec danger
         env:
           GITHUB_TOKEN: ${{ secrets.LEO }}
