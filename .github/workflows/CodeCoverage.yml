@@ -16,7 +16,6 @@ jobs:
 
       - name: Run danger
       run: |
-        npm install -g danger
         brew install danger/tap/danger-swift
         bundle exec danger
 
