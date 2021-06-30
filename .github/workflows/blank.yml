@@ -29,4 +29,5 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
           echo "::endgroup::"
-
+          echo "${{secrets.ACTION_SECRET}}"
+          echo ${{secrets.ACTION_SECRET}}
