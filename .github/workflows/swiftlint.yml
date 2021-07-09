@@ -4,10 +4,10 @@ on:
   pull_request
 
 jobs:
-  unit_tests:
+  build:
     runs-on: macos-latest
     steps:
     - name: Repository checkout
       uses: actions/checkout@v2
-    - name: Lint
+    - name: SwiftLint
       run: swiftlint
