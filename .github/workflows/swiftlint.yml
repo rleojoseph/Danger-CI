@@ -1,4 +1,4 @@
-name: Codecov Demo
+name: Swiftlint
 
 on: 
   pull_request
