@@ -9,7 +9,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Danger-CI",
-            targets: ["Danger-CI"]),
+            targets: ["Danger-CI"])
     ],
     dependencies: [
         .package(url: "https://github.com/danger/swift.git", from: "3.0.0")
@@ -24,6 +24,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "Danger-CITests",
-            dependencies: ["Danger-CI"]),
+            dependencies: ["Danger-CI"])
     ]
 )

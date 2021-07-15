@@ -1,3 +1,3 @@
-struct Danger_CI {
+struct DangerCI {
     var text = "Hello, World!"
 }
