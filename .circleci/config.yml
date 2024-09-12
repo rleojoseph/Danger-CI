@@ -13,9 +13,13 @@ container_medium: &container_medium
 jobs:
   danger_job:
     <<: *container_medium
+    docker:
+      - image: circleci/ruby:2.7
     steps:
       - checkout
-      - macos/install-rosetta
+      - run:
+          name: Install Rosetta
+          command: softwareupdate --install-rosetta --agree-to-license
       - run:
           name: Bundle Install Step
           command: bundle install 
@@ -24,10 +28,13 @@ jobs:
           command: brew install danger/tap/danger-swift
       - run:
           name: Which Danger
-          command: 'which danger-swift'  
+          command: 'which danger-swift'
+      - run:
+          name: Danger Version
+          command: 'danger-swift --version'
       - run:
           name: Run Danger
-          command: 'danger-swift local'          
+          command: 'danger-swift local --verbose'    
 
 workflows:
   version: 2.1
