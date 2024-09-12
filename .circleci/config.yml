@@ -18,9 +18,9 @@ jobs:
       - run:
           name: Install Rosetta
           command: softwareupdate --install-rosetta --agree-to-license
-      - run:
-          name: Bundle Install Step
-          command: bundle install 
+      # - run:
+      #     name: Bundle Install Step
+      #     command: bundle install 
       - run:
           name: Install Danger-Swift
           command: brew install danger/tap/danger-swift
@@ -29,10 +29,16 @@ jobs:
           command: 'which danger-swift'
       - run:
           name: Danger Version
+          command: 'danger --version'          
+      - run:
+          name: Danger Version
           command: 'danger-swift --version'
       - run:
           name: Run Danger
-          command: 'danger-swift local --verbose'    
+          command: 'danger-swift local --verbose'
+      - run:
+          name: Run Danger
+          command: 'danger-swift ci --verbose'          
 
 workflows:
   version: 2.1
