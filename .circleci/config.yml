@@ -31,14 +31,22 @@ jobs:
           name: Danger Version
           command: 'danger --version'          
       - run:
-          name: Danger Version
+          name: Danger Swift Version
           command: 'danger-swift --version'
       - run:
-          name: Run Danger
-          command: 'danger-swift local --verbose'
+          name: Danger Token Check
+          command: |
+            if [ -n "$DANGER_GITHUB_API_TOKEN" ]; then
+              echo "Running danger"
+            else
+              echo "Not running danger because $DANGER_GITHUB_API_TOKEN is not found"
+            fi          
+      - run:
+          name: Run Danger CI
+          command: 'danger-swift ci --verbose'
       - run:
           name: Run Danger
-          command: 'danger-swift ci --verbose'          
+          command: 'danger-swift local --verbose'          
 
 workflows:
   version: 2.1
