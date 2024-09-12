@@ -27,7 +27,7 @@ jobs:
           command: 'which danger-swift'  
       - run:
           name: Run Danger
-          command: 'danger-swift ci'          
+          command: 'danger-swift local'          
 
 workflows:
   version: 2.1
