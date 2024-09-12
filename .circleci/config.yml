@@ -5,17 +5,9 @@ jobs:
     macos:
       xcode: 15.2.0 
 
-    steps:
-      # Checkout the code as the first step.
-      - checkout
-      - store_test_results:
-          path: test_output
-      - store_artifacts:
-          path: test_output
-          destination: scan-output
-
   danger_job:
     steps:
+      - checkout
       - git_config_step
       - macos/install-rosetta
       - run:
@@ -35,4 +27,4 @@ workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - build
+      - danger_job
