@@ -1,7 +1,10 @@
-source "https://rubygems.org"
-
-gem "xcov", "1.7.5"
-gem "danger"
-gem "danger-swiftlint"
-gem "fastlane"
-gem "xcode-install"
+source 'https://rubygems.org'
+gem 'fastlane', '2.211.0'
+gem 'cocoapods', '1.11.2'
+gem 'cocoapods-binary', '0.4.4'
+gem 'cocoapods-keys', '2.2.1'
+gem 'xcodeproj', '1.21.0'
+gem 'xcov', '1.8.1'
+gem 'danger', '9.4.3'
+gem 'danger-xcov', :git => 'https://github.com/rakutentech/danger-xcov.git'
+gem 'danger-ios_logs', '0.1.2'
