@@ -15,7 +15,6 @@ jobs:
           destination: scan-output
 
   danger_job:
-    <<: *container_medium
     steps:
       - git_config_step
       - macos/install-rosetta
