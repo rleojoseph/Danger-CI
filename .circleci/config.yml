@@ -18,9 +18,9 @@ jobs:
       - run:
           name: Install Rosetta
           command: softwareupdate --install-rosetta --agree-to-license
-      # - run:
-      #     name: Bundle Install Step
-      #     command: bundle install 
+      - run:
+          name: Bundle Install Step
+          command: bundle install 
       - run:
           name: Install Danger-Swift
           command: brew install danger/tap/danger-swift
