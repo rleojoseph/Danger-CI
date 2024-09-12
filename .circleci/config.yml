@@ -13,8 +13,6 @@ container_medium: &container_medium
 jobs:
   danger_job:
     <<: *container_medium
-    docker:
-      - image: circleci/ruby:2.7
     steps:
       - checkout
       - run:
