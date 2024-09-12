@@ -9,7 +9,6 @@ orbs:
 container_medium: &container_medium
   macos:
     xcode: 14.2.0
-  resource_class: medium
   
 jobs:
   danger_job:
