@@ -43,10 +43,7 @@ jobs:
             fi          
       - run:
           name: Run Danger CI
-          command: 'danger-swift ci --verbose'
-      - run:
-          name: Run Danger
-          command: 'danger-swift local --verbose'          
+          command: 'danger-swift ci --verbose'       
 
 workflows:
   version: 2.1
