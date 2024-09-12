@@ -16,7 +16,6 @@ jobs:
     <<: *container_medium
     steps:
       - checkout
-      - git_config_step
       - macos/install-rosetta
       - run:
           name: Bundle Install Step
