@@ -48,6 +48,7 @@ jobs:
   determine_test_plan:
     <<: *container_medium
     steps:
+      - checkout
       - run:
           name: Determine Test Plan
           command: |
@@ -93,6 +94,4 @@ workflows:
   build-and-release-workflow:
     jobs:
       - danger_job
-      - determine_test_plan:
-          requires:
-            - danger_job
+      - determine_test_plan
