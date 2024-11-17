@@ -89,9 +89,22 @@ jobs:
           paths:
             - testing/test_plan_params.sh
 
+  print_test_plan_params:
+    <<: *container_medium
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Print Test Plan Params
+          command: cat testing/test_plan_params.sh
+
 workflows:
   version: 2.1
   build-and-release-workflow:
     jobs:
       - danger_job
       - determine_test_plan
+      - print_test_plan_params:
+          requires:
+            - determine_test_plan
