@@ -43,10 +43,56 @@ jobs:
             fi          
       - run:
           name: Run Danger CI
-          command: 'danger-swift ci --verbose'       
+          command: 'danger-swift ci --verbose'
+
+  determine_test_plan:
+    <<: *container_medium
+    steps:
+      - run:
+          name: Determine Test Plan
+          command: |
+            # CircleCI provides the branch we are comparing against as CIRCLE_BRANCH.
+            BASE_BRANCH="origin/$CIRCLE_BRANCH"
+            
+            # Get the default branch to compare (typically main or master)
+            DEFAULT_BRANCH=$(git rev-parse --abbrev-ref origin/HEAD)
+            echo "Default branch: $DEFAULT_BRANCH"
+
+            # Get the list of changed files between the current branch and the default branch
+            CHANGED_FILES=$(git diff --name-only $DEFAULT_BRANCH...HEAD)
+            echo "Changed files: $CHANGED_FILES"
+
+            mkdir -p testing
+            TEMP_FILE=$(mktemp)
+            
+            if echo "$CHANGED_FILES" | grep -qE "^(Demo/Demo/)"; then
+              echo "Including Tests for source"
+              echo "export SOURCE_TESTS=true" >> "$TEMP_FILE"
+            fi
+
+            if echo "$CHANGED_FILES" | grep -qE "^(Demo/DemoTests/)"; then
+              echo "Including Tests"
+              echo "export TESTS=true" >> "$TEMP_FILE"
+            fi
+
+            if ! echo "$CHANGED_FILES" | grep -qE "^(Demo/Demo/|Demo/DemoTests/)"; then
+              echo "Including all tests"
+              echo "export SOURCE_TESTS=true" >> "$TEMP_FILE"
+              echo "export TESTS=true" >> "$TEMP_FILE"
+            fi
+            sort -u "$TEMP_FILE" > testing/test_plan_params.sh
+            cat testing/test_plan_params.sh
+            rm "$TEMP_FILE"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - testing/test_plan_params.sh
 
 workflows:
   version: 2.1
   build-and-release-workflow:
     jobs:
       - danger_job
+      - determine_test_plan:
+          requires:
+            - danger_job
