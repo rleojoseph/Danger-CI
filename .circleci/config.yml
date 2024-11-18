@@ -103,8 +103,17 @@ workflows:
   version: 2.1
   build-and-release-workflow:
     jobs:
-      - danger_job
-      - determine_test_plan
+      - danger_job:
+          filters:
+            branches:
+              only: /.*/
+      - determine_test_plan:
+          filters:
+            branches:
+              only: /.*/
       - print_test_plan_params:
           requires:
             - determine_test_plan
+          filters:
+            branches:
+              only: /.*/
