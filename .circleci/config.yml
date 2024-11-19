@@ -103,10 +103,10 @@ workflows:
   version: 2.1
   build-and-release-workflow:
     jobs:
-      - danger_job:
-          filters:
-            branches:
-              only: /.*/
+      # - danger_job:
+      #     filters:
+      #       branches:
+      #         only: /.*/
       - determine_test_plan:
           filters:
             branches:
